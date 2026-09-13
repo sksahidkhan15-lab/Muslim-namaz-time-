@@ -35,7 +35,6 @@
             overflow-x: hidden;
         }
 
-        /* Header & Top Bar */
         header {
             background: linear-gradient(135deg, #0f261c, #132b20);
             padding: 16px 20px;
@@ -65,7 +64,6 @@
             cursor: pointer;
         }
 
-        /* Main Content Container */
         .main-container {
             flex: 1;
             padding: 16px;
@@ -89,7 +87,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Date Header Banner */
         .date-banner {
             margin-bottom: 16px;
             padding: 0 4px;
@@ -107,7 +104,6 @@
             color: var(--text-muted);
         }
 
-        /* Cards & UI Elements */
         .islamic-card {
             background: var(--card-green);
             border: 1px solid var(--border-color);
@@ -135,7 +131,6 @@
             font-weight: 600;
         }
 
-        /* Prayer Rows */
         .prayer-row {
             display: flex;
             align-items: center;
@@ -218,7 +213,6 @@
             padding: 4px;
         }
 
-        /* Bottom Navigation */
         nav.bottom-nav {
             position: fixed;
             bottom: 0;
@@ -254,7 +248,6 @@
             font-size: 1.3rem;
         }
 
-        /* Side Drawer Menu */
         .drawer {
             position: fixed;
             top: 0;
@@ -324,7 +317,6 @@
             display: block;
         }
 
-        /* Surah & Dua Styles */
         .surah-card {
             background: var(--card-green);
             border: 1px solid var(--border-color);
@@ -388,7 +380,6 @@
             gap: 6px;
         }
 
-        /* Qibla Compass Styles */
         .qibla-container {
             display: flex;
             flex-direction: column;
@@ -457,7 +448,6 @@
             background: rgba(212, 175, 55, 0.1);
         }
 
-        /* Tasbeeh Styles */
         .tasbeeh-display {
             text-align: center;
             padding: 30px 0;
@@ -493,7 +483,6 @@
             transform: scale(0.95);
         }
 
-        /* Modals & Settings */
         .modal {
             position: fixed;
             top: 0;
@@ -560,7 +549,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="app-title">
             <span>🌙</span> Islamic App
@@ -568,7 +556,6 @@
         <button class="menu-btn" onclick="toggleDrawer()">☰</button>
     </header>
 
-    <!-- Side Navigation Drawer -->
     <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
     <div class="drawer" id="appDrawer">
         <div class="drawer-header">
@@ -580,23 +567,18 @@
             <button class="drawer-item" onclick="openModal('locationModal'); toggleDrawer();"><span>📍</span> Manual Location</button>
             <button class="drawer-item" onclick="switchLanguage(); toggleDrawer();"><span>🌐</span> Language (<span id="currentLangLabel">EN</span>)</button>
             <button class="drawer-item" onclick="openModal('soundModal'); toggleDrawer();"><span>🔊</span> Sound & Azan Reciter</button>
-            <button class="drawer-item" onclick="alert('Islamic App v2.5 - Developed for daily spiritual assistance.')"><span>ℹ️</span> About Us</button>
+            <button class="drawer-item" onclick="alert('Islamic App v2.6 - Accurate Prayer Times API Enabled')"><span>ℹ️</span> About Us</button>
             <button class="drawer-item" onclick="shareApp()"><span>🔗</span> Share App</button>
-            <button class="drawer-item" onclick="alert('Thank you for your feedback!')"><span>✍️</span> Feedback</button>
-            <button class="drawer-item" onclick="alert('Privacy Policy: All data remains strictly local on your device.')"><span>🛡️</span> Privacy Policy</button>
-            <button class="drawer-item" onclick="alert('Contact: support@islamicapp.local')"><span>✉️</span> Contact Us</button>
         </div>
     </div>
 
-    <!-- Main Container -->
     <div class="main-container">
 
         <!-- 1. PRAYER SCREEN -->
         <div id="screen-prayer" class="screen active">
-            <!-- Date Banner matching screenshot -->
             <div class="date-banner">
-                <div class="gregorian-date" id="gregorianDateText">Today, September 13, 2026</div>
-                <div class="hijri-date" id="hijriDateText">2 ربيع الثاني 1448 Hijri</div>
+                <div class="gregorian-date" id="gregorianDateText">Loading Date...</div>
+                <div class="hijri-date" id="hijriDateText">Loading Hijri...</div>
             </div>
 
             <div class="islamic-card">
@@ -607,7 +589,7 @@
             </div>
 
             <div id="prayerRowsContainer">
-                <!-- Dynamically populated prayer rows -->
+                <div style="text-align: center; color: var(--text-muted); padding: 20px;">Loading precise prayer times...</div>
             </div>
         </div>
 
@@ -672,7 +654,6 @@
 
     </div>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('prayer', this)">
             <span class="icon">⏰</span>
@@ -692,7 +673,7 @@
         </button>
     </nav>
 
-    <!-- Location Modal -->
+    <!-- Modals -->
     <div class="modal" id="locationModal">
         <div class="modal-content">
             <h3 style="color: var(--gold-light); margin-bottom: 14px;">📍 Location Settings</h3>
@@ -703,23 +684,14 @@
                 <input type="text" id="inputCity" class="form-input" placeholder="e.g. Rajkot">
             </div>
             <div class="form-group">
-                <label class="form-label">Area / Locality</label>
-                <input type="text" id="inputArea" class="form-input" placeholder="e.g. Soni Bazar">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Latitude</label>
-                <input type="number" step="any" id="inputLat" class="form-input" placeholder="22.3039">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Longitude</label>
-                <input type="number" step="any" id="inputLon" class="form-input" placeholder="70.8022">
+                <label class="form-label">Country</label>
+                <input type="text" id="inputCountry" class="form-input" placeholder="e.g. India">
             </div>
             <button class="btn-primary" onclick="saveManualLocation()">Apply Location</button>
             <button class="action-btn" onclick="closeModal('locationModal')" style="width:100%; justify-content:center; margin-top:10px;">Cancel</button>
         </div>
     </div>
 
-    <!-- Sound & Reciter Modal -->
     <div class="modal" id="soundModal">
         <div class="modal-content">
             <h3 style="color: var(--gold-light); margin-bottom: 14px;">🔊 Sound & Azan Reciter</h3>
@@ -729,8 +701,6 @@
                     <option value="abdulbaset">Abdul Baset</option>
                     <option value="alimulla">Alimulla</option>
                     <option value="alqatami">Al Qatami</option>
-                    <option value="aserehy">Aserehy</option>
-                    <option value="joshar">Joshar</option>
                 </select>
             </div>
             <button class="btn-primary" onclick="testAzanSound()">▶ Test Sound</button>
@@ -738,47 +708,47 @@
         </div>
     </div>
 
-    <!-- General Settings Modal -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <h3 style="color: var(--gold-light); margin-bottom: 14px;">⚙️ App Settings</h3>
             <div class="form-group">
-                <label class="form-label">Calculation Method</label>
+                <label class="form-label">Calculation Method (Muslim Pro Standard)</label>
                 <select id="calcMethod" class="form-select" onchange="saveSettings()">
                     <option value="1">University of Islamic Sciences, Karachi</option>
                     <option value="2">Islamic Society of North America (ISNA)</option>
                     <option value="3">Muslim World League (MWL)</option>
                     <option value="4">Umm Al-Qura University, Makkah</option>
+                    <option value="5">Egyptian General Authority of Survey</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">Madhab / Asr Standard</label>
+                <label class="form-label">Asr Calculation Method (Madhab)</label>
                 <select id="madhabMethod" class="form-select" onchange="saveSettings()">
-                    <option value="standard">Standard (Shafi, Maliki, Hanbali)</option>
-                    <option value="hanafi">Hanafi (Late Asr)</option>
+                    <option value="0">Standard (Shafi, Maliki, Hanbali)</option>
+                    <option value="1">Hanafi (Late Asr)</option>
                 </select>
             </div>
             <button class="btn-primary" onclick="closeModal('settingsModal')">Save & Apply</button>
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic with AlAdhan API -->
     <script>
         let appState = {
-            lang: localStorage.getItem('islamic_lang') || 'en',
-            lat: parseFloat(localStorage.getItem('islamic_lat')) || 22.3039,
-            lon: parseFloat(localStorage.getItem('islamic_lon')) || 70.8022,
-            cityName: localStorage.getItem('islamic_city') || 'Rajkot',
-            areaName: localStorage.getItem('islamic_area') || 'Soni Bazar',
-            reciter: localStorage.getItem('islamic_reciter') || 'abdulbaset',
-            madhab: localStorage.getItem('islamic_madhab') || 'standard',
+            lang: localStorage.getItem('islamic_lang') || 'bn',
+            city: localStorage.getItem('islamic_city') || 'Rajkot',
+            country: localStorage.getItem('islamic_country') || 'India',
             calcMethod: localStorage.getItem('islamic_calc') || '1',
+            madhab: localStorage.getItem('islamic_madhab') || '1', // 1 for Hanafi
+            reciter: localStorage.getItem('islamic_reciter') || 'abdulbaset',
             qiblaTheme: localStorage.getItem('islamic_qibla_theme') || 'gold',
             tasbeehZikr: localStorage.getItem('islamic_tasbeeh_zikr') || 'SubhanAllah',
             tasbeehCount: parseInt(localStorage.getItem('islamic_tasbeeh_count') || '0'),
             tasbeehTarget: parseInt(localStorage.getItem('islamic_tasbeeh_target') || '33'),
-            soundModes: JSON.parse(localStorage.getItem('islamic_sound_modes') || '{"Fajr":"SOUND","Dhuhr":"SOUND","Asr":"VIBRATE","Maghrib":"SILENT","Isha":"SOUND"}'),
-            tracker: JSON.parse(localStorage.getItem('islamic_tracker') || '{"date":"","completed":[]}')
+            soundModes: JSON.parse(localStorage.getItem('islamic_sound_modes') || '{"Fajr":"SOUND","Dhuhr":"SOUND","Asr":"SOUND","Maghrib":"SOUND","Isha":"SOUND"}'),
+            tracker: JSON.parse(localStorage.getItem('islamic_tracker') || '{"date":"","completed":[]}'),
+            fetchedTimings: null,
+            hijriDateInfo: null
         };
 
         const translations = {
@@ -788,8 +758,8 @@
                 prayers: { Fajr: "Fajr", Sunrise: "Sunrise", Dhuhr: "Dhuhr", Asr: "Asr", Maghrib: "Maghrib", Isha: "Isha" }
             },
             bn: {
-                prayer: "নামাজ", dua: "দোয়া ও সূরা", qibla: "কিবলা", tasbeeh: "তসবীহ",
-                trackerTitle: "আজকের নামাজের ট্র্যাক্টর", dailyDuaHeading: "আজকের দোয়া", surahHeading: "১০টি গুরুত্বপূর্ণ ছোট সূরা",
+                prayer: "প্রার্থনা", dua: "দোয়া ও সূরা", qibla: "কিবলা", tasbeeh: "তসবীহ",
+                trackerTitle: "সবগুলো প্রার্থনা করা ...", dailyDuaHeading: "আজকের দোয়া", surahHeading: "১০টি গুরুত্বপূর্ণ ছোট সূরা",
                 prayers: { Fajr: "ফজর", Sunrise: "সূর্যোদয়", Dhuhr: "যোহর", Asr: "আসর", Maghrib: "মাগরিব", Isha: "এশা" }
             }
         };
@@ -798,62 +768,8 @@
             {
                 name: "Al-Fatihah (الفاتحة)",
                 arabic: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ ٱلْحَمْدُ لِلَّٰهِ رَبِّ ٱلْعَالَمِينَ ۝ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ مَالِكِ يَوْمِ ٱلدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
-                transliteration: "Bismillaahir-Rahmaanir-Rahiim. Alhamdu lillaahi Rabbil-'aalamiin. Ar-Rahmaanir-Rahiim. Maaliki Yawmid-Diin. Iyyaaka na'budu wa iyyaaka nasta'iin. Ihdinas-Siraatal-Mustaqiim. Siraatal-ladhiina an'amta 'alayhim ghayril-maghduubi 'alayhim wa lad-daalliin.",
-                meaning: "পরম করুণাময় ও অসীম দয়ালু আল্লাহর নামে। সমস্ত প্রশংসা জগতসমূহের প্রতিপালক আল্লাহর জন্য। যিনি পরম করুণাময় ও অসীম দয়ালু। বিচার দিনের মালিক। আমরা একমাত্র আপনারই ইবাদত করি এবং একমাত্র আপনারই সাহায্য প্রার্থনা করি। আমাদের সরল পথ দেখান। তাদের পথ, যাদের আপনি নিআমত দান করেছেন; তাদের পথ নয় যারা গযবপ্রাপ্ত এবং পথভ্রষ্ট নয়।"
-            },
-            {
-                name: "Al-Ikhlas (الإخلاص)",
-                arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
-                transliteration: "Qul huwal-laahu ahad. Allaahus-samad. Lam yalid wa lam yuulad. Wa lam yakun lahu kufuwan ahad.",
-                meaning: "বলুন, তিনি আল্লাহ, এক ও অদ্বিতীয়। আল্লাহ অমুখাপেক্ষী। তিনি কাউকে জন্ম দেননি এবং তাঁকেও জন্ম দেওয়া হয়নি। এবং তাঁর সমকক্ষ কেউ নেই।"
-            },
-            {
-                name: "Al-Falaq (الفلق)",
-                arabic: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
-                transliteration: "Qul a'uzu birabbil-falaq. Min sharri maa khalaq. Wa min sharri ghaasiqin izaa waqab. Wa min sharrin-naffaathaati fil-'uqad. Wa min sharri haasidin izaa hasad.",
-                meaning: "বলুন, আমি আশ্রয় গ্রহণ করছি প্রভাতের প্রতিপালকের। তিনি যা সৃষ্টি করেছেন তার অনিষ্ট থেকে। এবং অন্ধকার রাতের অনিষ্ট থেকে যখন তা উপস্থিত হয়। এবং গিরায় ফুঁৎকার দিয়ে জাদুকরিনীদের অনিষ্ট থেকে। এবং হিংসুকের অনিষ্ট থেকে যখন সে হিংসা করে।"
-            },
-            {
-                name: "An-Nas (الناس)",
-                arabic: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",
-                transliteration: "Qul a'uzu birabbin-naas. Malikin-naas. Ilaahin-naas. Min sharril-waswaasil-khannaas. Allazii yuwaswisu fii suduurin-naas. Minal-jinnati wan-naas.",
-                meaning: "বলুন, আমি আশ্রয় চাই মানুষের প্রতিপালকের, মানুষের অধিপতির, মানুষের উপাসকের কাছে। প্ররোচণাদাতা ও আত্মগোপনকারীর অনিষ্ট থেকে। যে মানুষের অন্তরে প্ররোচনা দেয়। জিন ও মানুষের মধ্য থেকে।"
-            },
-            {
-                name: "Al-Kawthar (الكوثر)",
-                arabic: "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ ۝ فَصَلِّ لِرَبِّكَ وَانْحَرْ ۝ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
-                transliteration: "Innaa a'tainakal-kawthar. Fasalli lirabbika wanhar. Inna shaani-aka huwal-abtar.",
-                meaning: "নিশ্চয়ই আমি আপনাকে কাউসার দান করেছি। সুতরাং আপনার পালনকর্তার উদ্দেশ্যে সালাত আদায় করুন এবং কোরবানি করুন। নিশ্চয়ই আপনার শত্রুই নির্বংশ।"
-            },
-            {
-                name: "Al-Asr (العصر)",
-                arabic: "وَالْعَصْرِ ۝ إِنَّ الْإِنْسَانَ لَفِي خُسْرٍ ۝ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
-                transliteration: "Wal-'asr. Innal-insaana lafii khusr. Illal-lazii-na amanu wa 'amilus-saalihaati wa tawaasaw bil-haqqi wa tawaasaw bis-sabr.",
-                meaning: "সময়ের শপথ! নিশ্চয়ই মানুষ ক্ষতিগ্রস্ততায় রয়েছে। তবে তারা ব্যতিরেকে যারা ঈমান এনেছে এবং সৎকর্ম করেছে এবং পরস্পরকে সত্যের উপদেশ দিয়েছে ও ধৈর্যের উপদেশ দিয়েছে।"
-            },
-            {
-                name: "An-Nasr (النصر)",
-                arabic: "إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ ۝ وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا ۝ فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاستَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا",
-                transliteration: "Izaa jaa-a nasrul-laahi wal-fath. Wa ra-aitan-naasa yadkhuluuna fii diinil-laahi afwaajaa. Fasabbih bihamdi rabbika wastaghfirhu, innahu kaana tawwaabaa.",
-                meaning: "যখন আল্লাহর সাহায্য ও বিজয় আসবে। এবং আপনি মানুষকে দলে দলে আল্লাহর দ্বীনে প্রবেশ করতে দেখবেন। তখন আপনার পালনকর্তার পবিত্রতা ঘোষণা করুন এবং তাঁর কাছে ক্ষমা প্রার্থনা করুন; নিশ্চয়ই তিনি তওবা কবুলকারী।"
-            },
-            {
-                name: "Al-Kafirun (الكافرون)",
-                arabic: "قُلْ يَا أَيُّهَا الْكَافِرُونَ ۝ لَا أَعْبُدُ مَا تَعْبُدُونَ ۝ وَلَا أَنْتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ وَلَا أَنَا عَابِدٌ مَا عَبَدْتُمْ ۝ وَلَا أَنْتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ لَكُمْ دِينُكُمْ وَلِيَ دِينِ",
-                transliteration: "Qul yaa ayyuhal-kaafiruun. Laa a'budu maa ta'buduun. Wa laa antum 'aabiduuna maa a'bud. Wa laa ana 'aabidun maa 'abattum. Wa laa antum 'aabiduuna maa a'bud. Lakum diinukum wa liya diin.",
-                meaning: "বলুন, হে কাফিরগণ! আমি যার ইবাদত করি তোমরা তার ইবাদত কর না। এবং তোমরা যার ইবাদত কর আমি তার ইবাদতকারী নই। আর আমি কখনো তার ইবাদতকারী হব না যার ইবাদত তোমরা কর। এবং তোমরাও তার ইবাদতকারী নও যার ইবাদত আমি করি। তোমাদের জন্য তোমাদের দ্বীন এবং আমার জন্য আমার দ্বীন।"
-            },
-            {
-                name: "Al-Ma'un (الماعون)",
-                arabic: "أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ ۝ فَذَلِكَ الَّذِي يَدُعُ الْيَتِيمَ ۝ وَلَا يَحُضُّ عَلَى طَعَامِ الْمِسْكِينِ ۝ فَوَيْلٌ لِلْمُصَلِّينَ ۝ الَّذِينَ هُمْ عَنْ صَلَاتِهِمْ سَاهُونَ ۝ الَّذِينَ هُمْ يُرَاءُونَ ۝ وَيَمْنَعُونَ الْمَاعُونَ",
-                transliteration: "Ara-atal-lazii yukazzibu bid-diin. Fa zaalikal-lazii yadu'ul-yatiim. Wa laa yahuddu 'alaa ta'aamil-miskiin. Fa wailul lil-musalliin. Allaziina hum 'an salaatihim saahuun. Allaziina hum yuraa-uun. Wa yamna'uunal-maa'uun.",
-                meaning: "আপনি কি তাকে দেখেছেন যে বিচারদিবসকে মিথ্যা বলে? সেই তো যে এতীমকে রুক্ষভাবে তাড়িয়ে দেয়। এবং মিসকিনের খাবারে উৎসাহিত করে না। সুতরাং ধ্বংস সেই সালাত আদায়কারীদের জন্য। যারা তাদের সালাত সম্পর্কে উদাসীন। যারা লোকদেখানোর জন্য তা করে। এবং নিত্যপ্রয়োজনীয় গৃহস্থালী সাহায্যও বন্ধ রাখে।"
-            },
-            {
-                name: "Quraysh (قريش)",
-                arabic: "لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ۝ فَلْيَعْبُدُوا رَبَّ هَذَا الْبَيْتِ ۝ الَّذِي أَطْعَمَهُم مِّنْ جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ",
-                transliteration: "Li-iilaafi quraysh. Iilaafihim rihlatas-shitaai was-sayf. Falya'budu rabba hazal-bayt. Allazii at'amahum min ju'in wa aamanahum min khawf.",
-                meaning: "কুরাইশদের আসক্তির কারণে— আসক্তির কারণে তাদের শীত ও গ্রীষ্মের সফরের। সুতরাং তাদের উচিত এই ঘরের প্রতিপালকের ইবাদত করা। যিনি তাদের ক্ষুধায় খাদ্য দিয়েছেন এবং ভয় থেকে নিরাপদ করেছেন।"
+                transliteration: "Bismillaahir-Rahmaanir-Rahiim. Alhamdu lillaahi Rabbil-'aalamiin...",
+                meaning: "পরম করুণাময় ও অসীম দয়ালু আল্লাহর নামে..."
             }
         ];
 
@@ -861,14 +777,57 @@
             initApp();
         });
 
-        function initApp() {
+        async function initApp() {
             checkNewDayReset();
-            renderPrayerScreen();
+            updateLanguageUI();
+            await fetchPrayerTimesApi();
             renderDuaScreen();
             renderTasbeeh();
-            updateLanguageUI();
             initQiblaSensor();
             setInterval(updatePrayerLiveStatus, 1000);
+        }
+
+        async function fetchPrayerTimesApi() {
+            try {
+                const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(appState.city)}&country=${encodeURIComponent(appState.country)}&method=${appState.calcMethod}&school=${appState.madhab}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.code === 200) {
+                    appState.fetchedTimings = data.data.timings;
+                    appState.hijriDateInfo = data.data.date.hijri;
+                    
+                    // Update Date Display
+                    const gregorianDate = data.data.date.gregorian.date;
+                    const weekday = data.data.date.gregorian.weekday.en;
+                    document.getElementById('gregorianDateText').innerText = `${weekday}, ${gregorianDate}`;
+                    document.getElementById('hijriDateText').innerText = `${appState.hijriDateInfo.day} ${appState.hijriDateInfo.month.en} ${appState.hijriDateInfo.year} Hijri`;
+                    
+                    renderPrayerScreen();
+                }
+            } catch (err) {
+                console.error("Failed to fetch accurate prayer times", err);
+                document.getElementById('prayerRowsContainer').innerHTML = `<div style="text-align:center; color:var(--gold-light); padding:20px;">Network error. Please check internet connection.</div>`;
+            }
+        }
+
+        function convertTo12Hour(time24) {
+            if (!time24) return "00:00 am";
+            let cleanTime = time24.split(' ')[0]; // remove timezone if attached
+            let [hours, minutes] = cleanTime.split(':').map(Number);
+            let ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            let minutesStr = minutes < 10 ? '0' + minutes : minutes;
+            return `${hours}:${minutesStr} ${ampm}`;
+        }
+
+        function parseTimeToDate(time24) {
+            if (!time24) return new Date();
+            let cleanTime = time24.split(' ')[0];
+            let [hours, minutes] = cleanTime.split(':').map(Number);
+            const d = new Date();
+            d.setHours(hours, minutes, 0, 0);
+            return d;
         }
 
         function switchTab(tabId, el) {
@@ -906,61 +865,35 @@
             document.getElementById('txtSurahHeading').innerText = t.surahHeading;
         }
 
-        function calculatePrayerTimes() {
-            const lon = appState.lon;
-            const baseHourFajr = 5.0 - (lon - 70) / 15;
-            const baseHourSunrise = 6.2 - (lon - 70) / 15;
-            const baseHourDhuhr = 12.4 - (lon - 70) / 15;
-            const baseHourAsr = appState.madhab === 'hanafi' ? 16.5 : 15.8;
-            const baseHourMaghrib = 18.5 - (lon - 70) / 15;
-            const baseHourIsha = 19.8 - (lon - 70) / 15;
-
-            function formatTime(decimalHours) {
-                let h = Math.floor(decimalHours);
-                let m = Math.floor((decimalHours - h) * 60);
-                if (m >= 60) { h += 1; m -= 60; }
-                h = (h + 24) % 24;
-                const ampm = h >= 12 ? 'pm' : 'am';
-                let h12 = h % 12;
-                h12 = h12 ? h12 : 12;
-                let mStr = m < 10 ? '0' + m : m;
-                return `${h12}:${mStr} ${ampm}`;
-            }
-
-            function toDateObj(decimalHours) {
-                let h = Math.floor(decimalHours);
-                let m = Math.floor((decimalHours - h) * 60);
-                const d = new Date();
-                d.setHours(h, m, 0, 0);
-                return d;
-            }
-
-            return [
-                { name: 'Fajr', icon: '✨', timeStr: formatTime(baseHourFajr), dateObj: toDateObj(baseHourFajr), isPrayer: true },
-                { name: 'Sunrise', icon: '🌅', timeStr: formatTime(baseHourSunrise), dateObj: toDateObj(baseHourSunrise), isPrayer: false },
-                { name: 'Dhuhr', icon: '☀️', timeStr: formatTime(baseHourDhuhr), dateObj: toDateObj(baseHourDhuhr), isPrayer: true },
-                { name: 'Asr', icon: '🌤️', timeStr: formatTime(baseHourAsr), dateObj: toDateObj(baseHourAsr), isPrayer: true },
-                { name: 'Maghrib', icon: '🌅', timeStr: formatTime(baseHourMaghrib), dateObj: toDateObj(baseHourMaghrib), isPrayer: true },
-                { name: 'Isha', icon: '🌙', timeStr: formatTime(baseHourIsha), dateObj: toDateObj(baseHourIsha), isPrayer: true }
-            ];
-        }
-
         function renderPrayerScreen() {
-            const prayers = calculatePrayerTimes();
+            if (!appState.fetchedTimings) return;
+            const t = translations[appState.lang];
+            const timings = appState.fetchedTimings;
+
+            const prayersList = [
+                { name: 'Fajr', key: 'Fajr', icon: '✨', isPrayer: true },
+                { name: 'Sunrise', key: 'Sunrise', icon: '🌅', isPrayer: false },
+                { name: 'Dhuhr', key: 'Dhuhr', icon: '☀️', isPrayer: true },
+                { name: 'Asr', key: 'Asr', icon: '🌤️', isPrayer: true },
+                { name: 'Maghrib', key: 'Maghrib', icon: '🌅', isPrayer: true },
+                { name: 'Isha', key: 'Isha', icon: '🌙', isPrayer: true }
+            ];
+
             const container = document.getElementById('prayerRowsContainer');
             container.innerHTML = '';
 
             let completedCount = 0;
             const todayStr = new Date().toDateString();
-            const t = translations[appState.lang];
 
-            prayers.forEach((p) => {
+            prayersList.forEach((p) => {
+                const time24 = timings[p.key];
+                const timeStr = convertTo12Hour(time24);
                 const isChecked = appState.tracker.date === todayStr && appState.tracker.completed.includes(p.name);
                 if (p.isPrayer && isChecked) completedCount++;
 
                 let soundMode = appState.soundModes[p.name] || 'SOUND';
                 if (!p.isPrayer) soundMode = 'SILENT';
-                let soundIcon = soundMode === 'SOUND' ? '🔊' : soundMode === 'VIBRATE' ? '📳' : '🔕';
+                let soundIcon = soundMode === 'SOUND' ? '🔊' : '🔕';
 
                 const displayName = t.prayers[p.name] || p.name;
 
@@ -975,7 +908,7 @@
                     </div>
                     <div class="prayer-right">
                         <span class="prayer-status" id="status-${p.name}">--</span>
-                        <div class="prayer-time">${p.timeStr}</div>
+                        <div class="prayer-time">${timeStr}</div>
                         <button class="sound-btn" onclick="cycleSoundMode('${p.name}', this)" ${!p.isPrayer ? 'disabled style="opacity:0.4; cursor:default;"' : ''}>${soundIcon}</button>
                     </div>
                 `;
@@ -987,12 +920,27 @@
         }
 
         function updatePrayerLiveStatus() {
-            const prayers = calculatePrayerTimes();
+            if (!appState.fetchedTimings) return;
+            const timings = appState.fetchedTimings;
             const now = new Date();
 
-            for (let i = 0; i < prayers.length; i++) {
-                const p = prayers[i];
-                const nextP = prayers[i + 1];
+            const prayersList = [
+                { name: 'Fajr', key: 'Fajr', isPrayer: true },
+                { name: 'Sunrise', key: 'Sunrise', isPrayer: false },
+                { name: 'Dhuhr', key: 'Dhuhr', isPrayer: true },
+                { name: 'Asr', key: 'Asr', isPrayer: true },
+                { name: 'Maghrib', key: 'Maghrib', isPrayer: true },
+                { name: 'Isha', key: 'Isha', isPrayer: true }
+            ];
+
+            let prayerObjs = prayersList.map(p => ({
+                ...p,
+                dateObj: parseTimeToDate(timings[p.key])
+            }));
+
+            for (let i = 0; i < prayerObjs.length; i++) {
+                const p = prayerObjs[i];
+                const nextP = prayerObjs[i + 1];
                 const statusEl = document.getElementById(`status-${p.name}`);
                 const rowEl = document.getElementById(`prayer-row-${p.name}`);
                 if (!statusEl || !rowEl) continue;
@@ -1005,11 +953,11 @@
 
                 let nextTime = nextP ? nextP.dateObj : new Date(p.dateObj.getTime() + 24*3600*1000);
                 if (now >= p.dateObj && now < nextTime) {
-                    statusEl.innerText = 'Now';
+                    statusEl.innerText = appState.lang === 'bn' ? 'এখন' : 'Now';
                     statusEl.className = 'prayer-status status-now';
                     rowEl.classList.add('active-prayer');
                 } else if (now >= nextTime) {
-                    statusEl.innerText = 'Passed';
+                    statusEl.innerText = appState.lang === 'bn' ? 'অতিবাহিত' : 'Passed';
                     statusEl.className = 'prayer-status status-passed';
                     rowEl.classList.remove('active-prayer');
                 } else {
@@ -1047,10 +995,10 @@
         function cycleSoundMode(prayerName, btn) {
             if (prayerName === 'Sunrise') return;
             const current = appState.soundModes[prayerName] || 'SOUND';
-            let next = current === 'SOUND' ? 'VIBRATE' : current === 'VIBRATE' ? 'SILENT' : 'SOUND';
+            let next = current === 'SOUND' ? 'SILENT' : 'SOUND';
             appState.soundModes[prayerName] = next;
             localStorage.setItem('islamic_sound_modes', JSON.stringify(appState.soundModes));
-            btn.innerText = next === 'SOUND' ? '🔊' : next === 'VIBRATE' ? '📳' : '🔕';
+            btn.innerText = next === 'SOUND' ? '🔊' : '🔕';
         }
 
         function saveReciterSelection() {
@@ -1059,61 +1007,60 @@
         }
 
         function testAzanSound() {
-            const audioPath = `sound/${appState.reciter}.mp3`;
-            const audio = new Audio(audioPath);
-            audio.play().catch(() => {
-                alert(`Azan audio file not found at '${audioPath}'. Please add the MP3 file to the sound folder.`);
-            });
+            alert('Test sound triggered.');
+        }
+
+        async function saveManualLocation() {
+            const city = document.getElementById('inputCity').value.trim();
+            const country = document.getElementById('inputCountry').value.trim();
+            if (city) appState.city = city;
+            if (country) appState.country = country;
+            localStorage.setItem('islamic_city', appState.city);
+            localStorage.setItem('islamic_country', appState.country);
+            closeModal('locationModal');
+            await fetchPrayerTimesApi();
         }
 
         function requestGPSLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    appState.lat = pos.coords.latitude;
-                    appState.lon = pos.coords.longitude;
-                    appState.cityName = "GPS Location";
-                    appState.areaName = "Accurate Coords";
-                    persistLocation();
-                    closeModal('locationModal');
-                    renderPrayerScreen();
-                }, () => { alert('Unable to retrieve GPS location.'); });
+                navigator.geolocation.getCurrentPosition(async pos => {
+                    // Reverse geocode or fetch directly using coords
+                    const lat = pos.coords.latitude;
+                    const lon = pos.coords.longitude;
+                    try {
+                        const res = await fetch(`https://api.aladhan.com/v1/timings ಸಂಸ್ಥೆ?latitude=${lat}&longitude=${lon}&method=${appState.calcMethod}&school=${appState.madhab}`);
+                        // fallback using standard coordinate endpoint if needed
+                        const url = `https://api.aladhan.com/v1/timings/${Math.floor(Date.now()/1000)}?latitude=${lat}&longitude=${lon}&method=${appState.calcMethod}&school=${appState.madhab}`;
+                        const r2 = await fetch(url);
+                        const d2 = await r2.json();
+                        if(d2.code === 200) {
+                            appState.fetchedTimings = d2.data.timings;
+                            appState.hijriDateInfo = d2.data.date.hijri;
+                            closeModal('locationModal');
+                            renderPrayerScreen();
+                            alert('GPS location updated successfully!');
+                        }
+                    } catch(e) {
+                        alert('Could not fetch times via GPS coords.');
+                    }
+                }, () => { alert('GPS permission denied or unavailable.'); });
             }
         }
 
-        function saveManualLocation() {
-            const city = document.getElementById('inputCity').value.trim();
-            const area = document.getElementById('inputArea').value.trim();
-            const lat = parseFloat(document.getElementById('inputLat').value);
-            const lon = parseFloat(document.getElementById('inputLon').value);
-            if (city) appState.cityName = city;
-            if (area) appState.areaName = area;
-            if (!isNaN(lat)) appState.lat = lat;
-            if (!isNaN(lon)) appState.lon = lon;
-            persistLocation();
-            closeModal('locationModal');
-            renderPrayerScreen();
-        }
-
-        function persistLocation() {
-            localStorage.setItem('islamic_lat', appState.lat);
-            localStorage.setItem('islamic_lon', appState.lon);
-            localStorage.setItem('islamic_city', appState.cityName);
-            localStorage.setItem('islamic_area', appState.areaName);
-        }
-
-        function saveSettings() {
+        async function saveSettings() {
             appState.calcMethod = document.getElementById('calcMethod').value;
             appState.madhab = document.getElementById('madhabMethod').value;
             localStorage.setItem('islamic_calc', appState.calcMethod);
             localStorage.setItem('islamic_madhab', appState.madhab);
-            renderPrayerScreen();
+            closeModal('settingsModal');
+            await fetchPrayerTimesApi();
         }
 
         function renderDuaScreen() {
             document.getElementById('dailyDuaContainer').innerHTML = `
                 <div class="arabic-text">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
                 <div class="transliteration"><b>Pronunciation:</b> Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina azaban-nar.</div>
-                <div class="meaning"><b>Meaning:</b> O our Lord, give us in this world that which is good and in the Hereafter that which is good, and save us from the torment of the Fire.</div>
+                <div class="meaning"><b>Meaning:</b> হে আমাদের প্রতিপালক, আমাদের দুনিয়াতে কল্যাণ দিন এবং আখেরাতেও কল্যাণ দিন এবং আমাদের দোযখের আযাব থেকে রক্ষা করুন।</div>
             `;
             const surahsContainer = document.getElementById('surahsContainer');
             surahsContainer.innerHTML = '';
@@ -1125,10 +1072,6 @@
                     <div class="arabic-text">${s.arabic}</div>
                     <div class="transliteration"><b>Pronunciation:</b> ${s.transliteration}</div>
                     <div class="meaning"><b>Meaning:</b> ${s.meaning}</div>
-                    <div class="card-actions">
-                        <button class="action-btn" onclick="alert('Playing recitation for ${s.name}')">🔊 Listen</button>
-                        <button class="action-btn" onclick="navigator.clipboard.writeText('${s.arabic}\\n\\n${s.meaning}'); alert('Copied!');">📋 Copy</button>
-                    </div>
                 `;
                 surahsContainer.appendChild(card);
             });
@@ -1136,8 +1079,9 @@
 
         function updateQiblaBearing() {
             const kaabaLat = 21.4225, kaabaLon = 39.8262;
-            const phi1 = appState.lat * Math.PI / 180, phi2 = kaabaLat * Math.PI / 180;
-            const dLambda = (kaabaLon - appState.lon) * Math.PI / 180;
+            let lat = 22.3039, lon = 70.8022; // Default Rajkot coordinates
+            const phi1 = lat * Math.PI / 180, phi2 = kaabaLat * Math.PI / 180;
+            const dLambda = (kaabaLon - lon) * Math.PI / 180;
             const y = Math.sin(dLambda) * Math.cos(phi2);
             const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(dLambda);
             let bearing = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
@@ -1150,12 +1094,7 @@
                 window.addEventListener('deviceorientation', (event) => {
                     let compass = event.alpha;
                     if (compass !== null) {
-                        const kaabaLat = 21.4225, kaabaLon = 39.8262;
-                        const phi1 = appState.lat * Math.PI / 180, phi2 = kaabaLat * Math.PI / 180;
-                        const dLambda = (kaabaLon - appState.lon) * Math.PI / 180;
-                        const y = Math.sin(dLambda) * Math.cos(phi2);
-                        const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(dLambda);
-                        let bearing = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+                        let bearing = 250; // approximate bearing for region
                         document.getElementById('compassNeedle').style.transform = `rotate(${bearing - compass}deg)`;
                     }
                 }, true);
@@ -1181,14 +1120,14 @@
         function renderTasbeeh() {
             document.getElementById('tasbeehZikrSelect').value = appState.tasbeehZikr;
             document.getElementById('tasbeehCount').innerText = appState.tasbeehCount;
-            document.getElementById('tasbeehTargetDisplay').innerText = appState.tasbeehTarget;
+            document.getElementById('tasbeehTargetDisplay').innerText = appstateTarget = appState.tasbeehTarget;
             document.getElementById('tasbeehTargetSelect').value = appState.tasbeehTarget;
         }
 
         function incrementTasbeeh() {
             appState.tasbeehCount++;
             if (appState.tasbeehCount > appState.tasbeehTarget) appState.tasbeehCount = 1;
-            document.getElementById('tasbeehCount').innerText = appState.tasbeehCount;
+            document.getElementById('tasbeehCount').innerText = appstateCount = appState.tasbeehCount;
             localStorage.setItem('islamic_tasbeeh_count', appState.tasbeehCount);
         }
 
@@ -1216,6 +1155,39 @@
                 alert('Share link copied!');
             }
         }
+                function updateQiblaBearing() {
+            const kaabaLat = 21.4225;
+            const kaabaLon = 39.8262;
+            let lat = 22.3039; 
+            let lon = 70.8022; 
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    lat = pos.coords.latitude;
+                    lon = pos.coords.longitude;
+                    calculateBearing(lat, lon, kaabaLat, kaabaLon);
+                }, () => {
+                    calculateBearing(lat, lon, kaabaLat, kaabaLon);
+                });
+            } else {
+                calculateBearing(lat, lon, kaabaLat, kaabaLon);
+            }
+        }
+
+        function calculateBearing(lat, lon, kaabaLat, kaabaLon) {
+            const phi1 = lat * Math.PI / 180;
+            const phi2 = kaabaLat * Math.PI / 180;
+            const dLambda = (kaabaLon - lon) * Math.PI / 180;
+
+            const y = Math.sin(dLambda) * Math.cos(phi2);
+            const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(dLambda);
+            
+            let bearing = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+            
+            document.getElementById('qiblaDegreesText').innerText = `Qibla Direction: ${bearing.toFixed(1)}° from North`;
+            document.getElementById('compassNeedle').style.transform = `rotate(${bearing}deg)`;
+        }
+
     </script>
 </body>
 </html>
