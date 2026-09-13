@@ -1184,7 +1184,7 @@
             
             let bearing = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
             
-            document.getElementById('qiblaDegreesText').innerText = `Qibla Direction: ${bearing.toFixed(1)}° from North`;
+            document.getElementById('qiblaDegreesText').innerText = `Qibla Direction: ${bearing.toFixed(1)}° from West`;
             document.getElementById('compassNeedle').style.transform = `rotate(${bearing}deg)`;
         }
 
